@@ -4,7 +4,10 @@ import aexp.junit.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.test.AndroidTestRunner;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
@@ -24,6 +27,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         Button launcherButton = (Button)findViewById( R.id.launch_button );
+        TextView failureView = (TextView)findViewById( R.id.failureMessage);
+        failureView.setMovementMethod(ScrollingMovementMethod.getInstance()); 
         launcherButton.setOnClickListener( new View.OnClickListener() {
             public void onClick( View view ) {
                 startTest();
@@ -143,7 +148,9 @@ class TestRunner implements Runnable,TestListener
             testCounter = 0;
             errorCounter = 0;
             failureCounter = 0;
-            failureView = (TextView)parentActivity.findViewById( R.id.failureMessage);
+            
+            failureView = (TextView)parentActivity.
+            						findViewById( R.id.failureMessage);
             statusText = (TextView)parentActivity.
                                     findViewById( R.id.status );
             testCounterText = (TextView)parentActivity.
