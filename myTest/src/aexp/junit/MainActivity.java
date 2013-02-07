@@ -29,6 +29,8 @@ public class MainActivity extends Activity {
         Button launcherButton = (Button)findViewById( R.id.launch_button );
         TextView failureView = (TextView)findViewById( R.id.failureMessage);
         failureView.setMovementMethod(ScrollingMovementMethod.getInstance()); 
+        TextView errorView = (TextView)findViewById( R.id.errorMessage);
+        errorView.setMovementMethod(ScrollingMovementMethod.getInstance());
         launcherButton.setOnClickListener( new View.OnClickListener() {
             public void onClick( View view ) {
                 startTest();
@@ -62,7 +64,9 @@ class TestDisplay implements Runnable
         int errorCounter;
         int failureCounter;
         String failureMessageText;
+        String errorMessageText;
         TextView failureView;
+        TextView errorView;
         TextView statusText;
         TextView testCounterText;
         TextView errorCounterText;
@@ -73,8 +77,10 @@ class TestDisplay implements Runnable
                         int testCounter,
                         int errorCounter,
                         int failureCounter,
+                        String errorMessageText,
                         String failureMessageText,
                         TextView failureView,
+                        TextView errorView,
                         TextView statusText,
                         TextView testCounterText,
                         TextView errorCounterText,
@@ -86,7 +92,9 @@ class TestDisplay implements Runnable
             this.errorCounter = errorCounter;
             this.failureCounter = failureCounter;
             this.failureMessageText = failureMessageText;
+            this.errorMessageText = errorMessageText;
             this.failureView = failureView;
+            this.errorView = errorView;
             this.statusText = statusText;
             this.testCounterText = testCounterText;
             this.errorCounterText = errorCounterText;
@@ -121,6 +129,7 @@ class TestDisplay implements Runnable
             errorCounterText.setText( "Errors: "+errorCounter );
             failureCounterText.setText( "Failure: "+failureCounter );
             failureView.setText( "FailureMessage: "+failureMessageText );
+            errorView.setText( "ErrorMessage: "+errorMessageText );
         }
 }
 
@@ -131,7 +140,9 @@ class TestRunner implements Runnable,TestListener
         int errorCounter;
         int failureCounter;
         String failureMessageText = "";
+        String errorMessageText = "";
         TextView failureView;
+        TextView errorView;
         TextView statusText;
         TextView testCounterText;
         TextView errorCounterText;
@@ -151,6 +162,8 @@ class TestRunner implements Runnable,TestListener
             
             failureView = (TextView)parentActivity.
             						findViewById( R.id.failureMessage);
+            errorView = (TextView)parentActivity.
+									findViewById( R.id.errorMessage);
             statusText = (TextView)parentActivity.
                                     findViewById( R.id.status );
             testCounterText = (TextView)parentActivity.
@@ -174,6 +187,7 @@ class TestRunner implements Runnable,TestListener
             Log.d( LOG_TAG, "addError: "+test.getClass().getName() );
             Log.d( LOG_TAG, t.getMessage(), t );
             ++errorCounter;
+            errorMessageText += String.valueOf(errorCounter)+") "+test.getClass().getName()+"<>"+t.toString()+"\n";
             TestDisplay td = new TestDisplay(
                     TestDisplay.displayEvent.ERROR,
                     test.getClass().getName(),
@@ -181,6 +195,8 @@ class TestRunner implements Runnable,TestListener
                     errorCounter,
                     failureCounter,
                     failureMessageText,
+                    errorMessageText,
+                    errorView,
                     failureView,
                     statusText,
                     testCounterText,
@@ -203,6 +219,8 @@ class TestRunner implements Runnable,TestListener
                     errorCounter,
                     failureCounter,
                     failureMessageText,
+                    errorMessageText,
+                    errorView,
                     failureView,
                     statusText,
                     testCounterText,
@@ -222,6 +240,8 @@ class TestRunner implements Runnable,TestListener
                     errorCounter,
                     failureCounter,
                     failureMessageText,
+                    errorMessageText,
+                    errorView,
                     failureView,
                     statusText,
                     testCounterText,
@@ -241,6 +261,8 @@ class TestRunner implements Runnable,TestListener
                     errorCounter,
                     failureCounter,
                     failureMessageText,
+                    errorMessageText,
+                    errorView,
                     failureView,
                     statusText,
                     testCounterText,

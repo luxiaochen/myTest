@@ -12,9 +12,12 @@ public final class R {
     }
     public static final class id {
         public static final int errorCounter=0x7f040003;
+        public static final int errorMessage=0x7f040006;
         public static final int failureCounter=0x7f040004;
-        public static final int failureMessage=0x7f040005;
+        public static final int failureMessage=0x7f040008;
         public static final int launch_button=0x7f040000;
+        public static final int space1=0x7f040005;
+        public static final int space2=0x7f040007;
         public static final int status=0x7f040001;
         public static final int testCounter=0x7f040002;
     }
